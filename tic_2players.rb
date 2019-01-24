@@ -1,23 +1,15 @@
+require 'colorize'
+
 def create_player
    puts "Joueur 1, quel est ton nom ?"
    player1_name = gets.chomp
-   puts "Choisis ton symbole : soit X soit O"
-   player1_symbol = gets.chomp
-   while player1_symbol != ("X" || "0")
-     puts "Ré-essaye avec un X ou un O"
-     player1_symbol = gets.chomp
-   end
+   puts "Hello #{player1_name} ! Pour cette partie, ton symbole sera le X"
+   puts ""
    puts "Joueur 2, quel est ton nom ?"
    player2_name = gets.chomp
-   if player1_symbol == "O"
-     player2_symbol = "X"
-     puts "#{player2_name}, ton symbole est X"
-   else
-     player2_symbol = "0"
-     puts "#{player2_name}, ton symbole est O"
-   end
-   return params = {player1_name => player1_symbol, player2_name => player2_symbol}
- end
+   puts "Hello #{player2_name} ! Pour cette partie, ton symbole sera le O"
+end
+
 def new_board # on définit la méthode pour créer et conserver les variables pour les espaces vides de la grille
   @a1 = " "
   @a2 = " "
@@ -80,7 +72,7 @@ def x_turn
                       "C3" => @c3}
 
   puts "Joueur n°1 : où veux-tu jouer ?"
-  user_choice = gets.chomp.downcase
+  user_choice = gets.chomp
   user_choice_hash.each do |choice, square|
     if user_choice == choice
       if check_validity(square) == false
@@ -107,7 +99,7 @@ def o_turn
                       "C3" => @c3}
 
   puts "Joueur n°2 : où veux-tu jouer ?"
-  user_choice = gets.chomp.downcase
+  user_choice = gets.chomp
   user_choice_hash.each do |choice, square|
     if user_choice == choice
       if check_validity(square)
@@ -129,17 +121,44 @@ def check_for_winner
     elsif combos[0] == "X" && combos[1] == "X" && combos[2] == "X"
       puts "X a gagné! Bravo!"
       exit
-    #else
-    #  puts "Tie! Enter q to quit game."
     end
   end
 end
 
 def start_game
-  puts "Bienvenue dans notre Morpion !"
-  puts ""
-  puts "Pour placer ton symbole sur la grille, n'oublie pas d'entrer une case (de A1 à C3)."
-  puts "Pour quitter, appuies sur q à n'importe quel moment."
+          puts %q[
+        ___________.__         __                 __
+        \__    ___/|__| _____ |  |______   ____  |  |__ ____  __
+           |   |   |  |/ ___| |   __\__ \_/ ___\ |   __|    |/ _|
+           |   |   |  \  \___ |  |  / __ \  \___ |  |  | || | |___
+           |___|   |__|\___ | |__| (____ /\___ \ |__|  |____|\____|
+                            \/          \/     \/].yellow
+          
+                    puts %q[    
+                                   1   2   3
+                                A  O | O | X
+                                  ---|---|---
+                                B  O | x | O
+                                  ---|---|---
+                                C  X | O | X
+                            ].blue
+  
+          puts %q[
+            *********************** Les Règles **********************
+          ].green
+          puts %q[
+                           Pour jouer, rentre les
+                       coordonnées d'une case (de A1 à C3)
+
+                        Ne joues sur une case occupée,
+                        au risque de passer ton tour...
+          ].green
+          puts %q[
+                         Pour quitter, appuies sur q ;)
+          ].green
+          puts %q[
+            ********************* C'est parti ! *********************
+          ].green
 end
 
 def run_game
