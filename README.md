@@ -1,6 +1,6 @@
 # Tic_tac_toe
 
-  ## *Tentative* de réalisation d'un 🕹 jeu de morpion 🕹
+  ## _Tentative_ de réalisation d'un 🕹 jeu de morpion 🕹
 
   Pré-rédigé sans faire appel à des classes mais uniquement aux méthodes contenues dans le fichier Our_unique_Tic_Tac_Toe.rb, le programme s'exécute et permet de réaliser une partie entre 2 joueurs.
 
