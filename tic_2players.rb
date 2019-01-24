@@ -38,14 +38,20 @@ def win_combos # on définit les 8 combinaisons gagnantes
 end
 
 def print_grid # on affiche la structure de la grille, vide au début, puis completés au fur et à mesure
-  puts
-  puts "   1   2   3"
-  puts "A  #{@a1} | #{@a2} | #{@a3} "
-  puts "  ---|---|---"
-  puts "B  #{@b1} | #{@b2} | #{@b3} "
-  puts "  ---|---|---"
-  puts "C  #{@c1} | #{@c2} | #{@c3} "
-  puts
+  puts ""
+  puts "      1        2         3     "
+  puts "           |         |         "
+  puts "A     #{@a1}    |    #{@a2}    |    #{@a3}    "
+  puts "           |         |         "
+  puts "  ---------|---------|---------"
+  puts "           |         |         "
+  puts "B     #{@b1}    |    #{@b2}    |    #{@b3}    "
+  puts "           |         |         "
+  puts "  ---------|---------|---------"
+  puts "           |         |         "
+  puts "C     #{@c1}    |    #{@c2}    |    #{@c3}    "
+  puts "           |         |         "
+  puts ""
   check_for_winner # on vérifie qu'il n'y ai pas déja un gagnant
 end
 
