@@ -24,7 +24,6 @@ end
 
 def squares # on transforme les carrés vides en tableau
   [@a1, @a2, @a3, @b1, @b2, @b3, @c1, @c2, @c3]
-
 end
 
 def win_combos # on définit les 8 combinaisons gagnantes
@@ -36,7 +35,6 @@ def win_combos # on définit les 8 combinaisons gagnantes
   [@c1, @b2, @a3],
   [@a2, @b2, @c2],
   [@a3, @b3, @c3]]
-
 end
 
 def print_grid # on affiche la structure de la grille, vide au début, puis completés au fur et à mesure
@@ -49,7 +47,6 @@ def print_grid # on affiche la structure de la grille, vide au début, puis comp
   puts "C  #{@c1} | #{@c2} | #{@c3} "
   puts
   check_for_winner # on vérifie qu'il n'y ai pas déja un gagnant
-
 end
 
 def check_validity square_availability # on vérifie que le choix du joueur est valide (que la case est bien libre)

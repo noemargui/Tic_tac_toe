@@ -5,7 +5,7 @@ require ''
 
 ######################################################################################
 #^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^   METHODS   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^#
-
+=begin
 class Show
 
 	def show_board(board)
@@ -23,4 +23,17 @@ class Show
 	show_board(board)
 	show_board(board)
 
+end
+=end
+
+def print_grid # on affiche la structure de la grille, vide au début, puis completés au fur et à mesure
+  puts
+  puts "   1   2   3"
+  puts "A  #{@a1} | #{@a2} | #{@a3} "
+  puts "  ---|---|---"
+  puts "B  #{@b1} | #{@b2} | #{@b3} "
+  puts "  ---|---|---"
+  puts "C  #{@c1} | #{@c2} | #{@c3} "
+  puts
+  check_for_winner # on vérifie qu'il n'y ai pas déja un gagnant
 end
