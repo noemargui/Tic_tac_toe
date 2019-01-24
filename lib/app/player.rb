@@ -1,7 +1,8 @@
 ######################################################################################
 #^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^   REQUIERED   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^#
 
-require ''
+require 'show'
+require 'board'
 
 ######################################################################################
 #^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^   METHODS   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^#
@@ -19,13 +20,12 @@ class Player
 end
 =end
 
+class Player
+	attr_accessor :name
 
-def create_player
-   puts "Joueur 1, quel est ton nom ?"
-   player1_name = gets.chomp
-   puts "Hello #{player1_name} ! Pour cette partie, ton symbole sera le X"
-   puts ""
-   puts "Joueur 2, quel est ton nom ?"
-   player2_name = gets.chomp
-   puts "Hello #{player2_name} ! Pour cette partie, ton symbole sera le O"
+	def initialize
+		puts "Quel est le nom du joueur ?"
+		@name = gets.chomp
+	end
+
 end

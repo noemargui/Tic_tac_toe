@@ -20,49 +20,53 @@ class Application
 end
 =end
 
-def start_game
-          puts %q[
-        ___________.__         __                 __
-        \__    ___/|__| _____ |  |______   ____  |  |__ ____  __
-           |   |   |  |/ ___| |   __\__ \_/ ___\ |   __|    |/ _|
-           |   |   |  \  \___ |  |  / __ \  \___ |  |  | || | |___
-           |___|   |__|\___ | |__| (____ /\___ \ |__|  |____|\____|
-                            \/          \/     \/].yellow
-          
-                    puts %q[    
-                                   1   2   3
-                                A  O | O | X
-                                  ---|---|---
-                                B  O | x | O
-                                  ---|---|---
-                                C  X | O | X
-                            ].blue
-  
-          puts %q[
-            *********************** Les Règles **********************
-          ].green
-          puts %q[
-                           Pour jouer, rentre les
-                       coordonnées d'une case (de A1 à C3)
+class Application
 
-                        Ne joues sur une case occupée,
-                        au risque de passer ton tour...
-          ].green
-          puts %q[
-                         Pour quitter, appuies sur q ;)
-          ].green
-          puts %q[
-            ********************* C'est parti ! *********************
-          ].green
-end
+	def perform
+	  home_page
+	  @player.create_player
+	  new_board
+	  while true
+	    print_grid
+	    x_turn
+	    o_turn
+	  end
+	end
 
-def run_game
-  start_game
-  create_player
-  new_board
-  while true
-    print_grid
-    x_turn
-    o_turn
-  end
+	def home_page
+	          puts %q[
+	        ___________.__         __                 __
+	        \__    ___/|__| _____ |  |______   ____  |  |__ ____  __
+	           |   |   |  |/ ___| |   __\__ \_/ ___\ |   __|    |/ _|
+	           |   |   |  \  \___ |  |  / __ \  \___ |  |  | || | |___
+	           |___|   |__|\___ | |__| (____ /\___ \ |__|  |____|\____|
+	                            \/          \/     \/].yellow
+	          
+	                    puts %q[    
+	                                   1   2   3
+	                                A  O | O | X
+	                                  ---|---|---
+	                                B  O | x | O
+	                                  ---|---|---
+	                                C  X | O | X
+	                            ].blue
+	  
+	          puts %q[
+	            *********************** Les Règles **********************
+	          ].green
+	          puts %q[
+	                           Pour jouer, rentre les
+	                       coordonnées d'une case (de A1 à C3)
+
+	                        Ne joues sur une case occupée,
+	                        au risque de passer ton tour...
+	          ].green
+	          puts %q[
+	                         Pour quitter, appuies sur q ;)
+	          ].green
+	          puts %q[
+	            ********************* C'est parti ! *********************
+	          ].green
+	end
+
 end
