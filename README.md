@@ -1,10 +1,10 @@
 # Tic_tac_toe
 
-  ## Tentative de réalisation d'un 🕹 jeu de morpion 🕹
+  ## *Tentative* de réalisation d'un 🕹 jeu de morpion 🕹
 
-  _Pré-rédigé sans faire appel à des classes mais uniquement aux méthodes contenues dans le fichier Our_unique_Tic_Tac_Toe.rb, le programme s'exécute et permet de réaliser une partie entre 2 joueurs.
+  Pré-rédigé sans faire appel à des classes mais uniquement aux méthodes contenues dans le fichier Our_unique_Tic_Tac_Toe.rb, le programme s'exécute et permet de réaliser une partie entre 2 joueurs.
 
-  N'ayant finalement pas réussi à imbriquer correctement les différents objets dans des classes, le programme dans son ensemble n'est pas encore fonctionnel_
+  *N'ayant finalement pas réussi à imbriquer correctement les différents objets dans des classes, le programme dans son ensemble n'est pas encore fonctionnel*
 
   <h2> En théorie :</h2>
 
