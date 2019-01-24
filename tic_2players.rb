@@ -136,9 +136,10 @@ def check_for_winner
 end
 
 def start_game
-  puts "Welcome to my Tic Tac Toe game!"
-  puts "To place your X on the grid, enter the location (ex--a1, b3)."
-  puts "To quit, enter q at any time"
+  puts "Bienvenue dans notre Morpion !"
+  puts ""
+  puts "Pour placer ton symbole sur la grille, n'oublie pas d'entrer une case (de A1 à C3)."
+  puts "Pour quitter, appuies sur q à n'importe quel moment."
 end
 
 def run_game
