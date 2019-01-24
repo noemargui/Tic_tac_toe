@@ -1,16 +1,56 @@
 require 'colorize'
 
-def create_player
-   puts "Joueur 1, quel est ton nom ?"
-   player1_name = gets.chomp
-   puts "Hello #{player1_name} ! Pour cette partie, ton symbole sera le X"
-   puts ""
-   puts "Joueur 2, quel est ton nom ?"
-   player2_name = gets.chomp
-   puts "Hello #{player2_name} ! Pour cette partie, ton symbole sera le O"
+def intro_game # intro type borne d'arcade pour notre morpion
+          puts %q[
+        ___________.__         __                 __
+        \__    ___/|__| _____ |  |______   ____  |  |__ ____  ___
+           |   |   |  |/ ___| |   __\__ \_/ ___\ |   __|    |/ __|
+           |   |   |  \  \___ |  |  / __ \  \___ |  |  | || |  \/_
+           |___|   |__|\____| |__| (____ /\____\ |__|  |____|\____|
+                                                 ].yellow
+          
+                    puts %q[    
+                                   1   2   3
+                                A  O | O | X
+                                  ---|---|---
+                                B  O | x | O
+                                  ---|---|---
+                                C  X | O | X
+                            ].blue
+  
+          puts %q[
+            ********************** Les Règles ***********************
+          ].green
+          puts %q[
+                           Pour jouer, rentre les
+                       coordonnées d'une case (de A1 à C3)
+
+                        Ne joues par sur une case occupée,
+                        au risque de passer ton tour...
+          ].green
+          puts %q[
+                         Pour quitter, appuies sur q ;)
+          ].green
+          puts %q[
+            ********************* C'est parti ! *********************
+          ].green
 end
 
-def new_board # on définit la méthode pour créer et conserver les variables pour les espaces vides de la grille
+def create_players # on définit le nom des deux jours, et on leur assigne un symbole X ou O
+   puts "Joueur 1, choisis ton pseudo de Morpionneur !"
+   print "> "
+   player1_name = gets.chomp
+   puts ""
+   puts "Hello #{player1_name} ! Pour cette partie, ton symbole sera le X."
+   puts ""
+   puts "Joueur 2, à ton tour de choisir ton pseudo !"
+   print "> "
+   player2_name = gets.chomp
+   puts ""
+   puts "Hello #{player2_name} ! Pour cette partie, ton symbole sera le O."
+end
+
+def empty_board # on initialise une nouvelle grille avec 9 espaces vides
   @a1 = " "
   @a2 = " "
   @a3 = " "
@@ -22,11 +62,37 @@ def new_board # on définit la méthode pour créer et conserver les variables p
   @c3 = " "
 end
 
-def squares # on transforme les carrés vides en tableau
-  [@a1, @a2, @a3, @b1, @b2, @b3, @c1, @c2, @c3]
+def print_grid # on affiche la structure de la grille, vide au début, puis completés au fur et à mesure
+  puts ""
+  puts "      1        2         3     ".yellow
+  puts "           |         |         ".yellow
+  puts "A     #{@a1}    |    #{@a2}    |    #{@a3}    ".yellow
+  puts "           |         |         ".yellow
+  puts "  ---------|---------|---------".yellow
+  puts "           |         |         ".yellow
+  puts "B     #{@b1}    |    #{@b2}    |    #{@b3}    ".yellow
+  puts "           |         |         ".yellow
+  puts "  ---------|---------|---------".yellow
+  puts "           |         |         ".yellow
+  puts "C     #{@c1}    |    #{@c2}    |    #{@c3}    ".yellow
+  puts "           |         |         ".yellow
+  puts ""
+  check_for_winner # on vérifie qu'il n'y ai pas déja un gagnant
 end
 
-def win_combos # on définit les 8 combinaisons gagnantes
+def check_for_winner
+  winning_combos.each do |combos|
+    if combos[0] == "O" && combos[1] == "O" && combos[2] == "O"
+      puts "Le O a gagné! Longue vie au O.".green
+      exit
+    elsif combos[0] == "X" && combos[1] == "X" && combos[2] == "X"
+      puts "Le X a gagné! Longue vie au X.".green
+      exit
+    end
+  end
+end
+
+def winning_combos # on définit les 8 combinaisons gagnantes
   [[@a1, @a2, @a3],
   [@a1, @b2, @c3],
   [@a1, @b1, @c1],
@@ -35,32 +101,6 @@ def win_combos # on définit les 8 combinaisons gagnantes
   [@c1, @b2, @a3],
   [@a2, @b2, @c2],
   [@a3, @b3, @c3]]
-end
-
-def print_grid # on affiche la structure de la grille, vide au début, puis completés au fur et à mesure
-  puts ""
-  puts "      1        2         3     "
-  puts "           |         |         "
-  puts "A     #{@a1}    |    #{@a2}    |    #{@a3}    "
-  puts "           |         |         "
-  puts "  ---------|---------|---------"
-  puts "           |         |         "
-  puts "B     #{@b1}    |    #{@b2}    |    #{@b3}    "
-  puts "           |         |         "
-  puts "  ---------|---------|---------"
-  puts "           |         |         "
-  puts "C     #{@c1}    |    #{@c2}    |    #{@c3}    "
-  puts "           |         |         "
-  puts ""
-  check_for_winner # on vérifie qu'il n'y ai pas déja un gagnant
-end
-
-def check_validity square_availability # on vérifie que le choix du joueur est valide (que la case est bien libre)
-  if square_availability == " "
-    true
-  else
-    puts "That space is taken. Get your own!" # si elle ne l'est pas, on lui dit, et il passe son tour
-  end
 end
 
 def x_turn
@@ -74,7 +114,7 @@ def x_turn
                       "C2" => @c2,
                       "C3" => @c3}
 
-  puts "Joueur n°1 : où veux-tu jouer ?"
+  puts "Joueur n°1 : où veux-tu jouer ?".blue
   user_choice = gets.chomp
   user_choice_hash.each do |choice, square|
     if user_choice == choice
@@ -83,11 +123,10 @@ def x_turn
       end
       square.sub!(" ", "X")
       print_grid
-    elsif user_choice == "q" or user_choice == "quit"
+    elsif user_choice == "q"
       exit
     end
   end
-  #check_for_winner
 end
 
 def o_turn
@@ -101,7 +140,7 @@ def o_turn
                       "C2" => @c2,
                       "C3" => @c3}
 
-  puts "Joueur n°2 : où veux-tu jouer ?"
+  puts "Joueur n°2 : où veux-tu jouer ?".blue
   user_choice = gets.chomp
   user_choice_hash.each do |choice, square|
     if user_choice == choice
@@ -109,65 +148,29 @@ def o_turn
         square.sub!(" ", "O")
         print_grid
       end
-    elsif user_choice == "q" or user_choice == "quit"
-      exit
-    end
-  end
-  #check_for_winner
-end
-
-def check_for_winner
-  win_combos.each do |combos|
-    if combos[0] == "O" && combos[1] == "O" && combos[2] == "O"
-      puts "O a gagné! Bravo!"
-      exit
-    elsif combos[0] == "X" && combos[1] == "X" && combos[2] == "X"
-      puts "X a gagné! Bravo!"
+    elsif user_choice == "q"
       exit
     end
   end
 end
 
-def start_game
-          puts %q[
-        ___________.__         __                 __
-        \__    ___/|__| _____ |  |______   ____  |  |__ ____  __
-           |   |   |  |/ ___| |   __\__ \_/ ___\ |   __|    |/ _|
-           |   |   |  \  \___ |  |  / __ \  \___ |  |  | || | |___
-           |___|   |__|\___ | |__| (____ /\___ \ |__|  |____|\____|
-                            \/          \/     \/].yellow
-          
-                    puts %q[    
-                                   1   2   3
-                                A  O | O | X
-                                  ---|---|---
-                                B  O | x | O
-                                  ---|---|---
-                                C  X | O | X
-                            ].blue
-  
-          puts %q[
-            *********************** Les Règles **********************
-          ].green
-          puts %q[
-                           Pour jouer, rentre les
-                       coordonnées d'une case (de A1 à C3)
-
-                        Ne joues sur une case occupée,
-                        au risque de passer ton tour...
-          ].green
-          puts %q[
-                         Pour quitter, appuies sur q ;)
-          ].green
-          puts %q[
-            ********************* C'est parti ! *********************
-          ].green
+def check_validity square_availability # on vérifie que le choix du joueur est valide (que la case est bien libre)
+  if square_availability == " "
+    true
+  else
+    puts "L'espace est déja pris mon pote! On t'avait prévenu, tu passes ton tour.." # si elle ne l'est pas, on lui dit, et il passe son tour
+  end
 end
+
+def squares # on liste les espaces de la grille dans un tableau, pour les manipuler plus facilement
+  [@a1, @a2, @a3, @b1, @b2, @b3, @c1, @c2, @c3]
+end
+
 
 def run_game
-  start_game
-  create_player
-  new_board
+  intro_game
+  create_players
+  empty_board
   while true
     print_grid
     x_turn
