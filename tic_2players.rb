@@ -1,28 +1,24 @@
-def create_player()
-   puts "Player 1, what's your name?"
+def create_player
+   puts "Joueur 1, quel est ton nom ?"
    player1_name = gets.chomp
-   puts "Choose your symbol X or O"
+   puts "Choisis ton symbole : soit X soit O"
    player1_symbol = gets.chomp
    while player1_symbol != ("X" || "0")
-     puts "Try again with X or O"
+     puts "Ré-essaye avec un X ou un O"
      player1_symbol = gets.chomp
    end
-   puts "Player 2, what's your name?"
+   puts "Joueur 2, quel est ton nom ?"
    player2_name = gets.chomp
    if player1_symbol == "O"
      player2_symbol = "X"
-     puts "#{player2_name}, your symbol is X"
+     puts "#{player2_name}, ton symbole est X"
    else
      player2_symbol = "0"
-     puts "#{player2_name}, your symbol is O"
+     puts "#{player2_name}, ton symbole est O"
    end
    return params = {player1_name => player1_symbol, player2_name => player2_symbol}
  end
-
-
-
-#first, I defined the new_board method to create and hold variables for empty squares on grid
-def new_board
+def new_board # on définit la méthode pour créer et conserver les variables pour les espaces vides de la grille
   @a1 = " "
   @a2 = " "
   @a3 = " "
@@ -34,13 +30,12 @@ def new_board
   @c3 = " "
 end
 
-#then, I defined the squares method to turn the empty squares into an array
-def squares
+def squares # on transforme les carrés vides en tableau
   [@a1, @a2, @a3, @b1, @b2, @b3, @c1, @c2, @c3]
 
 end
 
-def win_combos
+def win_combos # on définit les 8 combinaisons gagnantes
   [[@a1, @a2, @a3],
   [@a1, @b2, @c3],
   [@a1, @b1, @c1],
@@ -52,8 +47,7 @@ def win_combos
 
 end
 
-#the print_grid method draws a picture of the grid that holds the empty spaces from the squares array.
-def print_grid
+def print_grid # on affiche la structure de la grille, vide au début, puis completés au fur et à mesure
   puts
   puts "   1   2   3"
   puts "A  #{@a1} | #{@a2} | #{@a3} "
@@ -62,32 +56,30 @@ def print_grid
   puts "  ---|---|---"
   puts "C  #{@c1} | #{@c2} | #{@c3} "
   puts
-  check_for_winner
+  check_for_winner # on vérifie qu'il n'y ai pas déja un gagnant
 
 end
 
-#def method to check if user's choice of move is valid/available. this should be called only after the player has had 3 turns but I don't know how to do that.
-def check_validity square_availability
+def check_validity square_availability # on vérifie que le choix du joueur est valide (que la case est bien libre)
   if square_availability == " "
     true
   else
-    puts "That space is taken. Get your own!"
+    puts "That space is taken. Get your own!" # si elle ne l'est pas, on lui dit, et il passe son tour
   end
 end
 
 def x_turn
-  user_choice_hash = {"a1" => @a1,
-                      "a2" => @a2,
-                      "a3" => @a3,
-                      "b1" => @b1,
-                      "b2" => @b2,
-                      "b3" => @b3,
-                      "c1" => @c1,
-                      "c2" => @c2,
-                      "c3" => @c3}
+  user_choice_hash = {"A1" => @a1, # on map les inputs du joueur avec les bonnes cases
+                      "A2" => @a2,
+                      "A3" => @a3,
+                      "B1" => @b1,
+                      "B2" => @b2,
+                      "B3" => @b3,
+                      "C1" => @c1,
+                      "C2" => @c2,
+                      "C3" => @c3}
 
-
-  puts "Please X choose a square:"
+  puts "Joueur n°1 : où veux-tu jouer ?"
   user_choice = gets.chomp.downcase
   user_choice_hash.each do |choice, square|
     if user_choice == choice
@@ -104,18 +96,17 @@ def x_turn
 end
 
 def o_turn
-  user_choice_hash = {"a1" => @a1,
-                      "a2" => @a2,
-                      "a3" => @a3,
-                      "b1" => @b1,
-                      "b2" => @b2,
-                      "b3" => @b3,
-                      "c1" => @c1,
-                      "c2" => @c2,
-                      "c3" => @c3}
+  user_choice_hash = {"A1" => @a1, # on map les inputs du joueur avec les bonnes cases
+                      "A2" => @a2,
+                      "A3" => @a3,
+                      "B1" => @b1,
+                      "B2" => @b2,
+                      "B3" => @b3,
+                      "C1" => @c1,
+                      "C2" => @c2,
+                      "C3" => @c3}
 
-
-  puts "Please O choose a square:"
+  puts "Joueur n°2 : où veux-tu jouer ?"
   user_choice = gets.chomp.downcase
   user_choice_hash.each do |choice, square|
     if user_choice == choice
@@ -133,10 +124,10 @@ end
 def check_for_winner
   win_combos.each do |combos|
     if combos[0] == "O" && combos[1] == "O" && combos[2] == "O"
-      puts "O wins! Good job!"
+      puts "O a gagné! Bravo!"
       exit
     elsif combos[0] == "X" && combos[1] == "X" && combos[2] == "X"
-      puts "X win! Good job!"
+      puts "X a gagné! Bravo!"
       exit
     #else
     #  puts "Tie! Enter q to quit game."
